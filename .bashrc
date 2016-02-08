@@ -48,7 +48,7 @@ White="\[\033[0;37m\]"
 NORMAL="\[\033[00m\]"
 
 #PS1="${GREY}\u@\h ${GREEN}\t ${RED}\w \n\$ ${NORMAL}"
-PS1="${GREY}\u@\h ${GREEN}\t ${RED}\$ ${NORMAL}"
+PS1="${LGREY}\u@\h ${GREEN}\t ${RED}\$ ${NORMAL}"
 #comment this PS1 and use above if you want color
 #PS1="\u@\h \t \w \n\$ "
 
