@@ -14,7 +14,7 @@
 umask 077
 
 # set up the PATH variable
-PATH=/usr/bin:/bin:${PATH}
+PATH=${PATH}:/usr/local/sbin:/usr/bin:/bin
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
