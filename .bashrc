@@ -9,6 +9,9 @@
 # Make new files world readable
 umask 013
 
+# Add custom scripts to path
+export PATH=~/scripts:$PATH
+
 # Tab completion case-insensitive
 set completion-ignore-case on
 
