@@ -5,8 +5,9 @@ print("testing keras in python3")
 
 try:
     from keras import backend as K
-    print('It works!')
+    import keras
+    print("It works! Using Keras version {} with backend {}".format(keras.__version__,K._backend))
 except Error as e:
     print("Doesn't work!")
-    print "Unexpected error:", sys.exc_info()[0]
+    print("Unexpected error:", sys.exc_info()[0])
     raise

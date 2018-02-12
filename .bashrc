@@ -22,8 +22,6 @@ export DISPLAY=:0.0
 #export PRINTER=name
 #export LPRINTER=name
 
-set completion-ignore-case on
-
 # history files
 # don't put duplicate lines in the history. See bash(1) for more options
 HISTCONTROL=ignoredups:ignorespace
