@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+"""
+    https://projects.raspberrypi.org/en/projects/getting-started-with-picamera
+    https://www.raspberrypi.org/documentation/usage/camera/python/README.md
+    http://picamera.readthedocs.io/en/release-1.13/recipes2.html
+"""
+
+from picamera import PiCamera
+from time import sleep
+
+camera = PiCamera()
+
+camera.rotation = 180
+camera.start_preview(alpha=200)
+sleep(10)
+camera.stop_preview()
