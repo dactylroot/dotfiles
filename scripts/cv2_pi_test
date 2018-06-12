@@ -10,7 +10,7 @@ from picamera import PiCamera
 import time
 import cv2
 
-camera = PiCamera()
+camera = PiCamera(resolution = (640,480))
 rawCapture = PiRGBArray(camera)
 
 time.sleep(0.1)

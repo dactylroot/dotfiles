@@ -1,0 +1,5 @@
+#!/bin/sh
+
+rm /boot/overlays/mzdpi6.dtbo
+rm /boot/config.txt
+
