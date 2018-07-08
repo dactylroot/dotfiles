@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rsync -avzh ~/Documents/credentials mcs:/backups/credentials
+
+cd ~/workspace/nlp-research
+git push michael@michael-data.net:/srv/git/nlp-research HEAD
+

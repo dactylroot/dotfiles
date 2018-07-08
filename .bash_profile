@@ -14,12 +14,17 @@
 umask 077
 
 # set up the PATH variable
-PATH=${PATH}:/usr/local/sbin:/usr/bin:/bin
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/opt/local/bin:/opt/local/sbin:${PATH}
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-    export PYTHONPATH=$PYTHONPATH:$HOME/bin
+if [ -d "$HOME/scripts" ] ; then
+    PATH="$HOME/scripts:$PATH"
+    export PYTHONPATH=$PYTHONPATH:$HOME/scripts
+fi
+
+# check for bash-completion script installed by Mac homebrew
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
 fi
 
 ###############
@@ -51,4 +56,13 @@ export PS1 PS2 PATH
 if test -f ~/.bashrc ; then
 	. ~/.bashrc 
 fi
+
+
+#######################
+# pyenv configuration #
+#######################
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
 

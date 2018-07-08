@@ -4,7 +4,7 @@
 # that can't tolerate any output.
 
 # uncomment the following to activate bash-completion:
-#[ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
+[ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
 
 # Make new files world readable
 umask 013
@@ -91,3 +91,11 @@ alias ...='cd ../..'
 alias r='R'
 alias ecs='emacs -bg black -fg white -geometry 99x50+560+122 &'
 alias tl='tail -f -n500'
+
+#######################
+# pyenv configuration #
+#######################
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+

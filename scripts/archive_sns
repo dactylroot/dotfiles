@@ -1,0 +1,9 @@
+#!/bin/bash
+
+DEST='/Volumes/SNS'
+
+rsync -avzh ~/Documents/credentials $DEST/backups/credentials
+
+cd ~/workspace/nlp-research
+git push $DEST/srv/git/nlp-research HEAD
+
