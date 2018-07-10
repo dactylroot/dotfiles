@@ -23,8 +23,10 @@ if [ -d "$HOME/scripts" ] ; then
 fi
 
 # check for bash-completion script installed by Mac homebrew
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
+if hash brew 2>/dev/null; then
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+        . $(brew --prefix)/etc/bash_completion
+    fi
 fi
 
 ###############
@@ -61,8 +63,10 @@ fi
 #######################
 # pyenv configuration #
 #######################
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if hash pyenv 2>/dev/null; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+fi
 
 
