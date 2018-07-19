@@ -1,0 +1,17 @@
+#!/bin/bash
+
+DEST='mcs:'
+
+echo credentials backup
+rsync -avzh --delete ~/Documents/credentials/* $DEST/backups/credentials/
+
+echo documents backup
+rsync -avzh --delete ~/Documents/solo-tiger $DEST/backups/Documents/solo-tiger
+rsync -avzh --delete ~/Documents/JCI $DEST/backups/Documents/JCI
+rsync -avzh --delete ~/Pictures $DEST/backups/Documents/Pictures
+
+echo
+echo git backup
+cd ~/workspace/nlp-research
+ssh-agent bash -c "ssh-add ~/.ssh/michaeldata;git push $DEST/backups/git/nlp-research HEAD"
+

@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
-        name = Michael Stewart
-        email = statueofmike@gmail.com
+#        name = Michael Stewart
+#        email = statueofmike@gmail.com
 
 [credential]
 #        helper = osxkeychain
