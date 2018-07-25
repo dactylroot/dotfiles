@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ $# -eq 0 ]; then
+  echo "give an argument for new hostname"
+  exit 1
+fi
+
+# https://www.naschenweng.info/2016/12/29/os-set-hostname-computer-name-bonjour-command-line/
+
+export MY_NAME=$1
+sudo scutil --set ComputerName "$MY_NAME" && \
+sudo scutil --set HostName "$MY_NAME" && \
+sudo scutil --set LocalHostName "$MY_NAME" && \
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$MY_NAME"
