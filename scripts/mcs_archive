@@ -4,7 +4,6 @@ DEST='mcs:'
 
 echo credentials backup
 rsync -avzh --delete ~/.ssh/ $DEST/backups/credentials
-rsync -avzh --delete ~/.password-store/ $DEST/backups/.password-store
 
 echo documents backup
 rsync -avzh --delete ~/Documents/solo-tiger/ $DEST/backups/Documents/solo-tiger
@@ -16,3 +15,5 @@ echo git backup
 cd ~/workspace/nlp-research
 ssh-agent bash -c "ssh-add ~/.ssh/michaeldata;git push $DEST/backups/git/nlp-research HEAD"
 
+cd ~/.password-store
+ssh-agent bash -c "ssh-add ~/.ssh/michaeldata;git push $DEST/backups/git/password-store HEAD"
