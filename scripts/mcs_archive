@@ -3,12 +3,13 @@
 DEST='mcs:'
 
 echo credentials backup
-rsync -avzh --delete ~/.ssh/ $DEST/backups/credentials
+#rsync -avzh --delete ~/.ssh/ $DEST/backups/credentials
+rsync -avzh ~/.ssh/ $DEST/backups/credentials
 
 echo documents backup
-rsync -avzh --delete ~/Documents/solo-tiger/ $DEST/backups/Documents/solo-tiger
-rsync -avzh --delete ~/Documents/JCI/ $DEST/backups/Documents/JCI
-rsync -avzh --delete ~/Pictures/ $DEST/backups/Documents/Pictures
+rsync -avzh ~/Documents/solo-tiger/ $DEST/backups/Documents/solo-tiger
+rsync -avzh ~/Documents/JCI/ $DEST/backups/Documents/JCI
+rsync -avzh ~/Pictures/ $DEST/backups/Documents/Pictures
 
 echo
 echo git backup

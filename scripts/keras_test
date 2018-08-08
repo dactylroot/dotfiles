@@ -1,12 +1,11 @@
 #!/usr/bin/python3
-import sys
+import sys 
 
 print("testing keras in python3")
 
 try:
     from keras import backend as K
     print('It works!')
-except Error as e:
-    print("Doesn't work!")
-    print "Unexpected error:", sys.exc_info()[0]
-    raise
+except Exception as e:
+    print("Doesn't work!: "+str(e.msg))
+
