@@ -1,14 +1,23 @@
 #!/bin/bash
 
-DEST='/Volumes/SNS'
+DEST=$1
+
+echo "Backing up to $1"
+
+if [[ "$2" = "--delete" ]]
+then
+    echo "Deleting old backups"
+    DEL='--delete'
+else
+    echo "Not deleting old backups"
+    DEL=''
+fi
 
 echo credentials backup
-rsync -avzh ~/.ssh/ $DEST/backups/credentials
+rsync $DEL -acvzh ~/.ssh/ $DEST/backups/credentials
 
 echo documents backup
-rsync -avzh ~/Documents/solo-tiger/ $DEST/backups/Documents/solo-tiger
-rsync -avzh ~/Documents/JCI/ $DEST/backups/Documents/JCI
-rsync -avzh ~/Pictures/ $DEST/backups/Documents/Pictures
+rsync $DEL -acvzh ~/Pictures/ $DEST/backups/Documents/Pictures
 
 echo
 echo git backup

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DEST='mcs:'
+
+_archive $DEST $1
+

@@ -1,78 +1,70 @@
-# /etc/skel/.bashrc:
-# This file is sourced by all *interactive* bash shells on startup,
-# including some apparently interactive shells such as scp and rcp
-# that can't tolerate any output.
+# $HOME/.bashrc
+# Personal Bash config used mostly in Ubuntu and Apple Terminal
 
-# uncomment the following to activate bash-completion:
-[ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
+# If not running interactively, exit script
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
-# Make new files world readable
-umask 013
+# bash-completion Mac/Linux:
+if hash brew 2>/dev/null; then
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+        . $(brew --prefix)/etc/bash_completion
+    fi
+else
+    [ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
+fi
 
-# Add custom scripts to path
-export PATH=~/scripts:$PATH
-
-# Tab completion case-insensitive
 set completion-ignore-case on
 
-export EDITOR=gvim
+# Make sure files are NOT world readable
+umask 077
+
+export EDITOR=vim
 export DISPLAY=:0.0
 
-#add the printer name!
-#export PRINTER=name
-#export LPRINTER=name
-
-# history files
-# don't put duplicate lines in the history. See bash(1) for more options
+#################
+# History Files #
+#################
 HISTCONTROL=ignoredups:ignorespace
-# append to the history file, don't overwrite it
 shopt -s histappend
 export HISTFILE="~/.bash_history"
 export HISTSIZE=1000
-export HISTFILESIZE=10000
+export HISTFILESIZE=1000
 
-# Change the window title of X terminals
+##################
+# X Window Title #
+##################
 PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
 
-#prompt
-BLACK="\[\033[0;30m\]"
-BLUE="\[\033[0;34m\]"
-GREEN="\[\033[0;32m\]"
-GREY="\[\033[01;30m\]"
-CYAN="\[\033[0;36m\]"
-RED="\[\033[01;31m\]"
-PURPLE="\[\033[0;35m\]"
-BROWN="\[\033[0;33m\]"
-LGREY="\[\033[0;37m\]"
-Yellow="\[\033[0;33m\]"
-White="\[\033[0;37m\]"
+#############
+#  Prompts  #
+#############
 NORMAL="\[\033[00m\]"
+BLACK="\[\033[0;30m\]"
+GREY="\[\033[01;30m\]"
+RED="\[\033[01;31m\]"
+GREEN="\[\033[0;32m\]"
+BROWN="\[\033[0;33m\]"
+YELLOW="\[\033[1;33m\]"
+BLUE="\[\033[0;34m\]"
+PURPLE="\[\033[0;35m\]"
+CYAN="\[\033[0;36m\]"
+LGREY="\[\033[0;37m\]"
+WHITE="\[\033[1;37m\]"
 
-#PS1="${GREY}\u@\h ${GREEN}\t ${RED}\w \n\$ ${NORMAL}"
-PS1="${LGREY}\u@\h ${GREEN}\t ${RED}\$ ${NORMAL}"
-#comment this PS1 and use above if you want color
-#PS1="\u@\h \t \w \n\$ "
+PS1="${NORMAL}\u@\h ${GREEN}\t ${RED}\$ ${NORMAL}"
 
 # The default for PS2 is > which may be mistaken for a re-direct
 export PS2="\\"
 
-#General Settings
-set noclobber
-# Let me know when a background job has finished the moment it finishes.
-set notify
-
-THEOS=`uname`
-THEREV=`uname -r`
-RUID=`/usr/[ub][ci][bn]/whoami`
-
-###############################################################################
-#
-# Specific alias account settings:
-# These aliases are for all operating systems
-#
-###############################################################################
-# enable color support of ls and also add handy aliases
+###########
+# Aliases #
+###########
 if [ -x /usr/bin/dircolors ]; then
+    # https://geoff.greer.fm/lscolors/
+    export LS_COLORS='di=34:ln=1;36:so=32;47:pi=1;33:ex=1;35:bd=32:cd=32:su=32:sg=32:tw=32:ow=32'
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
@@ -81,23 +73,49 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
+else
+    # Color mode for Mac Terminal
+    export CLICOLOR=1
+    export LSCOLORS=exGxchDxFxcxcxcxcxcxcx
 fi
 
 alias ll='ls -alFh'
-alias llt='ls -alFht'
 alias l='ls -CF'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias r='R'
-alias ecs='emacs -bg black -fg white -geometry 99x50+560+122 &'
-alias tl='tail -f -n500'
+alias sl='screen -list'
+alias scan='sudo arp-scan --interface=en0 --localnet'
 
-#######################
-# pyenv configuration #
-#######################
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+##############
+# Path Setup #
+##############
+# include in path if directory is found
+path_update(){
+    if [ -d "$1" ] && [ ! $(echo $PATH | grep $1) ] ; then
+        PATH="$1:$PATH"
+    fi
+}
+
+path_update "$HOME/.local/bin"
+path_update "$HOME/.pyenv/bin"
+
+unset -f path_update
+
+# common binary paths
+#export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/opt/local/bin:/opt/local/sbin:${PATH}
+
+# pyenv configuration
+#export PYENV_ROOT="$HOME/.pyenv"
+#export PATH="$PYENV_ROOT/bin:$PATH"
 if hash pyenv 2>/dev/null; then
     eval "$(pyenv init -)"
 fi
+
+
+####################
+# Export Variables #
+####################
+export PS1 PS2 PATH
+unset PYTHONPATH
 

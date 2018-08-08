@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "testing keras in python3"
+
+gst-launch-1.0 -v fakesrc silent=false num-buffers=3 ! fakesink silent=false
+

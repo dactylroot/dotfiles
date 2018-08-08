@@ -12,7 +12,12 @@ git submodule update
 # separate repo mgmt from content dotfiles
 mv .git git
 mv .gitmodules gitmodules
+mv .gitignore gitignore
 
 # copy all content dotfiles to destination
-cp -r ./.[^.]* ./scripts $1
+cp -r ./.[^.]* $1
 
+# restore repo mgmt
+mv git .git
+mv gitmodules .gitmodules
+mv gitignore .gitignore

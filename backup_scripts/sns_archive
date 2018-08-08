@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DEST='/Volumes/SNS'
+
+./_archive $DEST $1
+

@@ -1,0 +1,55 @@
+#!/bin/bash
+
+if [ "$(whoami)" != "root" ]; then
+  echo "sudo access required"
+  ABORT=1
+fi
+
+if [ -z $(which pv) ]
+then
+  echo "need \`pv\` for this to run"
+  ABORT=1
+fi
+
+if [ -z $(which dd) ]
+then
+  echo "need \`dd\` for this to run"
+  ABORT=1
+fi
+
+if [ $# -lt 2 ]; then
+  printf "usage:\n  sudo makeimage <Source Mount> <Destination File>\n"
+  if [[ $(uname -s) == "Linux" ]]
+  then
+    printf "    e.g. \`makeimage /dev/sdc /home/pi/backup.gz\`\n"
+    printf "    Find the disk with \`lsblk\`.\n"
+  else
+    printf "    e.g. \`makeimage /dev/rdisk2 /home/pi/backup.gz\`\n"
+    printf "    Find the disk with \`diskutil list\`.\n"
+    printf "    In Mac, '/dev/rdisk*' are faster to access than '/dev/disk*'.\n"
+  fi
+  ABORT=1
+fi
+
+if [ -n ${ABORT+x} ]
+then
+  exit 1
+fi
+
+INDISK=$1
+DEST=$2
+
+if [ $(uname -s) == "Linux" ]
+then
+  BS=4M
+  DISKSIZE=`lsblk $INDISK -bn -o SIZE | head -1`
+else
+  BS=4m
+  DISKSIZE=`diskutil list -plist $INDISK | grep 'integer' | tail -n1 | grep -o -E '[0-9]+'`
+fi
+
+printf "source is $INDISK\n"
+printf "Image size $DISKSIZE bytes.\n"
+printf "destination is $DEST\n"
+
+sudo dd bs=$BS if=$INDISK | pv -s $DISKSIZE | dd bs=$BS of=$DEST

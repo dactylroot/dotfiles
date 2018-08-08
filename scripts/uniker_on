@@ -1,6 +1,0 @@
-#!/bin/sh
-
-cp uniker_screen/mzdpi6.dtbo /boot/overlays/mzdpi6.dtbo
-
-cp uniker_screen/config.txt /boot/config.txt
-
