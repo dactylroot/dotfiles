@@ -31,7 +31,7 @@ if [ $# -lt 2 ]; then
   ABORT=1
 fi
 
-if [ -n ${ABORT+x} ]
+if [ ! -n ${ABORT+''} ]
 then
   exit 1
 fi
@@ -41,15 +41,20 @@ DEST=$2
 
 if [ $(uname -s) == "Linux" ]
 then
-  BS=4M
+  BS=1M
   DISKSIZE=`lsblk $INDISK -bn -o SIZE | head -1`
 else
-  BS=4m
+  BS=1m
   DISKSIZE=`diskutil list -plist $INDISK | grep 'integer' | tail -n1 | grep -o -E '[0-9]+'`
 fi
 
 printf "source is $INDISK\n"
-printf "Image size $DISKSIZE bytes.\n"
+printf "partition size $DISKSIZE bytes.\n"
 printf "destination is $DEST\n"
 
-sudo dd bs=$BS if=$INDISK | pv -s $DISKSIZE | dd bs=$BS of=$DEST
+# https://superuser.com/a/1343575/356925  &  https://serverfault.com/a/948034/277837
+# sudo dd if=$INDISK bs=$BS count=$limMb | pv -s `expr $limMb '*' 1024 '*' 1024` | gzip -c |  split -b 2G - $DEST
+# sudo dd bs=$BS if=$INDISK | pv -s $DISKSIZE | dd bs=$BS of=$DEST
+sudo dd bs=$BS if=$INDISK | pv -s $DISKSIZE | gzip -c |  split -b 2G - $DEST
+
+# gzip -dc  /images/img.gz | sudo dd bs=$BS of=/dev/drive
