@@ -1,3 +1,5 @@
+termcapinfo xterm* ti@:te@
+
 multiuser on    # enable multiple users in same session
 autodetach on   # autodetach session on hangup instead of terminating screen
 vbell_msg "beep"
