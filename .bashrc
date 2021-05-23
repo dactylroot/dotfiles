@@ -86,6 +86,7 @@ alias ...='cd ../..'
 alias r='R'
 alias sl='screen -list'
 alias scan='sudo arp-scan --interface=en0 --localnet'
+alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
 
 ##############
 # Path Setup #
