@@ -64,7 +64,7 @@ export PS2="\\"
 ###########
 if [ -x /usr/bin/dircolors ]; then
     # https://geoff.greer.fm/lscolors/
-    export LS_COLORS='di=34:ln=1;36:so=32;47:pi=1;33:ex=1;35:bd=32:cd=32:su=32:sg=32:tw=32:ow=32'
+    export LS_COLORS=di=34:ln=1;36:so=32;47:pi=1;33:ex=1;35:bd=32:cd=32:su=32:sg=32:tw=32:ow=32
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
@@ -86,6 +86,7 @@ alias ...='cd ../..'
 alias r='R'
 alias sl='screen -list'
 alias scan='sudo arp-scan --interface=en0 --localnet'
+alias dooby='docker run -it -v /Users/michael/Downloads/:/root/downloads:ro ubuntu'
 alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
 
 ##############
@@ -106,12 +107,6 @@ unset -f path_update
 # common binary paths
 #export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/opt/local/bin:/opt/local/sbin:${PATH}
 
-# pyenv configuration
-#export PYENV_ROOT="$HOME/.pyenv"
-#export PATH="$PYENV_ROOT/bin:$PATH"
-if hash pyenv 2>/dev/null; then
-    eval "$(pyenv init -)"
-fi
 
 
 ####################
