@@ -86,7 +86,7 @@ alias ...='cd ../..'
 alias r='R'
 alias sl='screen -list'
 alias scan='sudo arp-scan --interface=en0 --localnet'
-alias dooby='docker run -it -v /Users/michael/Downloads/:/root/downloads:ro ubuntu'
+alias dubu='DOCKER_DEFAULT_PLATFORM=linux/x86_64 docker run -it -v /Users/michael/Downloads/:/root/downloads:ro ubuntu'
 alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
 
 ##############
