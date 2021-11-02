@@ -1,0 +1,14 @@
+#!/bin/bash
+# Usage: ./infiniscroll [<FILE>] [<DELAY>]
+
+if [[ $1 == "-h" ]]
+then
+    echo -e '\t usage: ./infiniscroll [<FILE>] [<DELAY>]'
+    echo -e '\t        infinite productivity hack'
+    exit 0
+fi
+
+INPUT=${1:-"/var/log/sys*log"}
+DELAY=${2:-.03}
+
+(while true; do cat $INPUT; done) | (while read line; do echo $line; sleep $DELAY; done)
