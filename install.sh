@@ -14,6 +14,10 @@ mv .git git
 mv .gitmodules gitmodules
 mv .gitignore gitignore
 
+# append some dotfiles
+cat ./.bashrc >> $1/.bashrc
+rm ./.bashrc
+
 # copy all content dotfiles to destination
 cp -r ./.[^.]* $1
 

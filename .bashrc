@@ -27,7 +27,7 @@ export DISPLAY=:0.0
 #################
 # History Files #
 #################
-HISTCONTROL=ignoredups:ignorespace
+HISTCONTROL=ignoreboth
 shopt -s histappend
 export HISTFILE="~/.bash_history"
 export HISTSIZE=1000
@@ -54,22 +54,18 @@ CYAN="\[\033[0;36m\]"
 LGREY="\[\033[0;37m\]"
 WHITE="\[\033[1;37m\]"
 
-PS1="${NORMAL}\u@\h ${GREEN}\t ${RED}\$ ${NORMAL}"
+#PS1="${NORMAL}\u@\h ${GREEN}\t ${RED}\$ ${NORMAL}"
 
 # The default for PS2 is > which may be mistaken for a re-direct
-export PS2="\\"
+#export PS2="\\"
 
 ###########
 # Aliases #
 ###########
 if [ -x /usr/bin/dircolors ]; then
     # https://geoff.greer.fm/lscolors/
-    export LS_COLORS=di=34:ln=1;36:so=32;47:pi=1;33:ex=1;35:bd=32:cd=32:su=32:sg=32:tw=32:ow=32
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -103,15 +99,3 @@ path_update "$HOME/.local/bin"
 path_update "$HOME/.pyenv/bin"
 
 unset -f path_update
-
-# common binary paths
-#export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/opt/local/bin:/opt/local/sbin:${PATH}
-
-
-
-####################
-# Export Variables #
-####################
-export PS1 PS2 PATH
-unset PYTHONPATH
-
